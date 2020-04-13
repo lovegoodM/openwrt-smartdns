@@ -17,11 +17,11 @@ config smartdns
 	option redirect 'dnsmasq-upstream'
 	option port '6053'
 	option prefetch_domain '1'
-	option dualstack_ip_selection '0'
 	option tcp_server '1'
-	option ipv6_server '0'
 	option serve_expired '1'
-	option enabled '0'
+	option enabled '1'
+	option ipv6_server '1'
+	option dualstack_ip_selection '1'
 	list old_redirect 'dnsmasq-upstream'
 	list old_port '6053'
 	list old_enabled '1'
@@ -82,4 +82,18 @@ config server
 	option type 'udp'
 	option name 'DNSPod DNS+'
 
+config server
+	option enabled '1'
+	option ip '8.8.8.8'
+	option type 'tcp'
+
+config server
+	option enabled '1'
+	option ip '8.8.4.4'
+	option type 'tcp'
+
+config server
+	option enabled '1'
+	option ip '1.1.1.1'
+	option type 'tcp'
 
