@@ -19,7 +19,7 @@ config smartdns
 	option prefetch_domain '1'
 	option tcp_server '1'
 	option serve_expired '1'
-	option enabled '1'
+	option enabled '0'
 	option ipv6_server '1'
 	option dualstack_ip_selection '1'
 	list old_redirect 'dnsmasq-upstream'
