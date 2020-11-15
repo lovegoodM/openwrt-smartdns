@@ -13,7 +13,8 @@ config smartdns
 	option port '6053'
 	option dualstack_ip_selection '1'
 	option prefetch_domain '1'
-	option rr_ttl_min '30'
+	option rr_ttl_min '600'
+	option rr_ttl_max '3600'
 	option seconddns_no_dualstack_selection '0'
 	option seconddns_port '5335'
 	option seconddns_no_cache '0'
@@ -21,133 +22,9 @@ config smartdns
 	option serve_expired '1'
 	option seconddns_no_speed_check '0'
 	option force_aaaa_soa '0'
-	option enabled '0'
 	option cache_size '4096'
+	option rr_ttl '600'
 	list old_redirect 'dnsmasq-upstream'
 	list old_port '6053'
-	list old_enabled '1'
-
-config server
-	option type 'udp'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-	option ip '211.142.211.124'
-	option name '填入你的运营商DNS'
-
-config server
-	option type 'udp'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-	option ip '111.8.14.18'
-	option name '填入你的运营商DNS2'
-
-config server
-	option enabled '1'
-	option type 'udp'
-	option ip '223.5.5.5'
-	option blacklist_ip '0'
-	option server_group 'china'
-	option name 'Aliyun'
-
-config server
-	option type 'udp'
-	option ip '119.29.29.29'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-	option name 'Tencent'
-
-config server
-	option type 'udp'
-	option name 'DNS_pai'
-	option ip '101.226.4.6'
-	option server_group 'china'
-	option blacklist_ip '0'
-	option enabled '1'
-
-config server
-	option type 'udp'
-	option ip '117.50.11.11'
-	option name 'OneDNS'
-	option server_group 'china'
-	option enabled '1'
-
-config server
-	option type 'udp'
-	option ip '114.114.114.114'
-	option name '114'
-	option server_group 'china'
-	option enabled '1'
-
-config server
-	option ip '8.8.8.8'
-	option blacklist_ip '0'
-	option enabled '1'
-	option server_group 'office'
-	option type 'tcp'
-	option name 'Google'
-
-config server
-	option enabled '1'
-	option server_group 'office'
-	option blacklist_ip '0'
-	option type 'tls'
-	option ip '8.8.8.8'
-	option port '853'
-	option name 'Google_tls'
-	option no_check_certificate '0'
-
-config server
-	option name 'OpenDNS'
-	option ip '208.67.222.222'
-	option blacklist_ip '0'
-	option enabled '1'
-	option server_group 'office'
-	option type 'tcp'
-
-config server
-	option enabled '1'
-	option type 'https'
-	option blacklist_ip '0'
-	option no_check_certificate '0'
-	option server_group 'office'
-	option ip 'https://doh.opendns.com'
-	option name 'OpenDNS_https'
-
-config server
-	option enabled '1'
-	option ip 'tls://dns.adguard.com'
-	option port '853'
-	option type 'tls'
-	option server_group 'office'
-	option blacklist_ip '0'
-	option no_check_certificate '0'
-
-config server
-	option enabled '1'
-	option ip 'tls://dns.quad9.net'
-	option port '853'
-	option type 'tls'
-	option server_group 'office'
-	option blacklist_ip '0'
-	option no_check_certificate '0'
-
-config server
-	option enabled '1'
-	option ip 'tls://dns.google'
-	option port '853'
-	option type 'tls'
-	option server_group 'office'
-	option blacklist_ip '0'
-	option no_check_certificate '0'
-
-config server
-	option enabled '1'
-	option ip 'https://dns.rubyfish.cn/dns-query'
-	option type 'https'
-	option server_group 'office'
-	option blacklist_ip '0'
-	option no_check_certificate '0'
+	list old_enabled '0'
 
