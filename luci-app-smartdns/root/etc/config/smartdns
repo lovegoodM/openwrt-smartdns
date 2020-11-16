@@ -23,7 +23,6 @@ config smartdns
 	option seconddns_no_speed_check '0'
 	option force_aaaa_soa '0'
 	option cache_size '4096'
-	option rr_ttl '600'
 	list old_redirect 'dnsmasq-upstream'
 	list old_port '6053'
 	list old_enabled '0'
