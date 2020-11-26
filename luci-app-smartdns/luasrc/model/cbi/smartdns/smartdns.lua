@@ -33,6 +33,15 @@ s:tab("settings", translate("General Settings"))
 s:tab("seconddns", translate("Second Server Settings"))
 s:tab("custom", translate("Custom Settings"))
 
+s:tab("updata", "更新数据")
+
+-- 更新GFW
+o = s:taboption("updata", Button, "updata_gfwlist", "更新GFW", "文件在 /etc/smartdns/gfwlist.conf")
+o.inputstyle = "save"
+function o.write(e, e)
+    os.execute("[ -x '/etc/smartdns/gfwlist2dnsmasq.sh' ] && /etc/smartdns/gfwlist2dnsmasq.sh -g office --domain-smartdns -o /etc/smartdns/gfwlist.conf >/dev/null 2>&1 &")
+end
+
 ---- Eanble
 o = s:taboption("settings", Flag, "enabled", translate("Enable"), translate("Enable or disable smartdns server"))
 o.default     = o.disabled
