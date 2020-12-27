@@ -83,6 +83,10 @@ set_iptable()
 		fi
 		iptables -t nat -A PREROUTING -p udp -d "$IP" --dport 53 -j REDIRECT --to-ports "$SMARTDNS_PORT" >/dev/null 2>&1
 	done
+	if [ "$tcp_server" = "1" ]; then
+		iptables -t nat -A OUTPUT -p tcp -d "127.0.0.1" --dport 53 -j REDIRECT --to-ports "$SMARTDNS_PORT" >/dev/null 2>&1
+	fi
+	iptables -t nat -A OUTPUT -p udp -d "127.0.0.1" --dport 53 -j REDIRECT --to-ports "$SMARTDNS_PORT" >/dev/null 2>&1
 
 	[ "$ipv6_server" = 0 ] && return
 
@@ -107,6 +111,8 @@ clear_iptable()
 		iptables -t nat -D PREROUTING -p udp -d "$IP" --dport 53 -j REDIRECT --to-ports "$OLD_PORT" >/dev/null 2>&1
 		iptables -t nat -D PREROUTING -p tcp -d "$IP" --dport 53 -j REDIRECT --to-ports "$OLD_PORT" >/dev/null 2>&1
 	done
+	iptables -t nat -D OUTPUT -p udp -d "127.0.0.1" --dport 53 -j REDIRECT --to-ports "$OLD_PORT" >/dev/null 2>&1
+	iptables -t nat -D OUTPUT -p tcp -d "127.0.0.1" --dport 53 -j REDIRECT --to-ports "$OLD_PORT" >/dev/null 2>&1
 
 	[ "$ipv6_server" = 0 ] && return
 
@@ -343,6 +349,12 @@ load_service()
 	uci add_list smartdns.@smartdns[0].old_port="$SMARTDNS_PORT" 2>/dev/null
 	uci add_list smartdns.@smartdns[0].old_enabled="$enabled" 2>/dev/null
 	uci commit smartdns
+
+	enabled_domain2ip='1'
+	if [ "$enabled_domain2ip" == "1" ]; then
+		$SMARTDNS_CONF_DIR/domain2ip.sh raw.githubusercontent.com githubusercontent.com -o $CUSTOM_CONF
+		$SMARTDNS_CONF_DIR/domain2ip.sh raw.github.com -o $CUSTOM_CONF
+	fi
 
 	[ "$enabled" -gt 0 ] || return 1
 
