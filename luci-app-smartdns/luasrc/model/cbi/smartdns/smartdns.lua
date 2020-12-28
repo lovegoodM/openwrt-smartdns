@@ -55,7 +55,7 @@ end
 o = s:taboption("domainlist", Button, "domainlist_button", "更新域名IP", "点击将更新域名的IP")
 o.inputstyle = "save"
 function o.write(self, section, value)
-    os.execute("[ -x '/etc/smartdns/domain/updatedomainip.sh' ] && /etc/smartdns/domain/updatedomainip.sh >/dev/null 2>&1 && /etc/init.d/smartdns restart &")
+    os.execute("[ -x '/etc/smartdns/domain/updatedomainip.sh' ] && sleep 2 && /etc/smartdns/domain/updatedomainip.sh >/dev/null 2>&1 && /etc/init.d/smartdns restart &")
 end
 
 s:tab("updata", "更新数据")
