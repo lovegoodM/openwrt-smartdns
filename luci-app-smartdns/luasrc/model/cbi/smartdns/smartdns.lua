@@ -33,14 +33,39 @@ s:tab("settings", translate("General Settings"))
 s:tab("seconddns", translate("Second Server Settings"))
 s:tab("custom", translate("Custom Settings"))
 
-s:tab("updata", "更新数据")
 
+s:tab("domainlist", "动态更新域名IP")
+-- 更新域名IP
+domainlist = s:taboption("domainlist", Value, "domainlist_domain",
+	"", 
+	"输入需要更新的域名(文件在 /etc/smartdns/domain/domain.txt)")
+
+domainlist.template = "cbi/tvalue"
+domainlist.rows = 20
+
+function domainlist.cfgvalue(self, section)
+	return nixio.fs.readfile("/etc/smartdns/domain/domain.txt")
+end
+
+function domainlist.write(self, section, value)
+	value = value:gsub("\r\n?", "\n")
+	nixio.fs.writefile("/etc/smartdns/domain/domain.txt", value)
+end
+
+o = s:taboption("domainlist", Button, "domainlist_button", "更新域名IP", "点击将更新域名的IP")
+o.inputstyle = "save"
+function o.write(self, section, value)
+    os.execute("[ -x '/etc/smartdns/domain/updatedomainip.sh' ] && /etc/smartdns/domain/updatedomainip.sh >/dev/null 2>&1 && /etc/init.d/smartdns restart &")
+end
+
+s:tab("updata", "更新数据")
 -- 更新GFW
 o = s:taboption("updata", Button, "updata_gfwlist", "更新GFW", "文件在 /etc/smartdns/gfwlist.conf")
 o.inputstyle = "save"
 function o.write(e, e)
-    os.execute("[ -x '/etc/smartdns/gfwlist2dnsmasq.sh' ] && /etc/smartdns/gfwlist2dnsmasq.sh -g office --domain-smartdns -o /etc/smartdns/gfwlist.conf >/dev/null 2>&1 &")
+    os.execute("[ -x '/etc/smartdns/gfwlist2dnsmasq.sh' ] && /etc/smartdns/gfwlist2dnsmasq.sh -g office --domain-smartdns -o /etc/smartdns/gfwlist.conf >/dev/null 2>&1 && /etc/init.d/smartdns restart &")
 end
+
 
 ---- Eanble
 o = s:taboption("settings", Flag, "enabled", translate("Enable"), translate("Enable or disable smartdns server"))

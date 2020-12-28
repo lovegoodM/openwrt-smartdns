@@ -350,12 +350,6 @@ load_service()
 	uci add_list smartdns.@smartdns[0].old_enabled="$enabled" 2>/dev/null
 	uci commit smartdns
 
-	enabled_domain2ip='1'
-	if [ "$enabled_domain2ip" == "1" ]; then
-		$SMARTDNS_CONF_DIR/domain2ip.sh raw.githubusercontent.com githubusercontent.com -o $CUSTOM_CONF
-		$SMARTDNS_CONF_DIR/domain2ip.sh raw.github.com -o $CUSTOM_CONF
-	fi
-
 	[ "$enabled" -gt 0 ] || return 1
 
 	if [ "$redirect" = "redirect" ]; then

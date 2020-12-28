@@ -70,10 +70,10 @@ findip() {
 }
 
 outandclean() {
-    sed -i "/address \/$DOMAIN\//d" $OUT_FILE 2>/dev/null
-    [ -n "$TIHUAN" ] && sed -i "/address \/$TIHUAN\//d" $OUT_FILE 2>/dev/null
+    sed -i "/address \/$DOMAIN/d" $OUT_FILE 2>/dev/null
+    [ -n "$TIHUAN" ] && sed -i "/address \/$TIHUAN/d" $OUT_FILE 2>/dev/null
     [ -n "$TIHUAN" ] && echo "address /$TIHUAN/$getip" >>$OUT_FILE || echo "address /$DOMAIN/$getip" >>$OUT_FILE
-    echo "done."
+    echo -e "done.\n"
     exit 0
 }
 
