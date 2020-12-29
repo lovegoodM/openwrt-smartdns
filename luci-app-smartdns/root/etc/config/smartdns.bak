@@ -10,7 +10,7 @@ config smartdns
 	option seconddns_no_cache '0'
 	option seconddns_no_speed_check '0'
 	option force_aaaa_soa '0'
-	option redirect 'dnsmasq-upstream'
+	option redirect 'none'
 	option port '6053'
 	option seconddns_port '7053'
 	option tcp_server '1'
